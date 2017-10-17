@@ -1,0 +1,17 @@
+80 14 00 00 00
+00 10 10 10 10
+10 10 10 10 10
+10 10 10 10 10
+30 f3 28 00 00 00
+90
+
+
+0x00: 80 14 00 00 00    | call 0x14
+0x05: 00 10 10 10 10    | halt nop nop nop nop
+0x0A: 10 10 10 10 10    | nop nop nop nop nop
+0x0F: 10 10 10 10 10    | nop nop nop nop nop
+0x14: 30 f3 28 00 00 00 | irmovl 0x28,%ebx
+0x1A: 90                | ret
+
+result:
+%ebx=0x28

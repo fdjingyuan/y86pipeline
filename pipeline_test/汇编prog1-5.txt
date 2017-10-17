@@ -1,0 +1,53 @@
+prog1£º
+0x000:	irmovl $10,%edx
+0x006:	irmovl $3,%eax
+0x00c:	addl %edx,%eax
+0x00e:	halt
+
+result:	%eax=13
+
+prog2:
+0x000:	xor %eax,%eax
+0x002:	jne  target
+0x007:	irmovl $1,%eax
+0x00d:	halt
+0x00e:target:
+0x00e:	irmovl $2,%edx
+0x014:	irmovl $3,%ebx
+0x01a:	halt
+
+result:	%eax=1
+
+prog3:
+0x000:	irmovl $128,%edx
+0x006:	irmovl $3,%ecx
+0x00c:	rmmovl %ecx,0(%edx)
+0x012:	irmovl $10,%ebx
+0x018:	mrmovl 0(%edx),%eax
+0x01e:	addl %ebx,%eax
+0x020:	halt
+
+result:	%eax=13
+
+
+prog4:
+0x000:	irmovl $10,%edx
+0x006:	irmovl $3,%eax
+0x00c:	rrmovl %edx,%eax
+0x00e:	halt
+
+result:	%eax=10
+
+
+prog5:
+0x000:	pushl %esi
+0x002:	call target
+0x007:	irmovl $8,%edx
+0x00d:	halt
+
+0x00e:target:
+0x00e:	irmovl $10,%ebx
+0x014:	ret
+
+result:	%ebx=10,%edx=8
+

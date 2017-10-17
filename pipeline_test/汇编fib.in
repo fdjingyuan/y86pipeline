@@ -1,0 +1,81 @@
+30 F4 00 10 00 00
+30 F0 05 00 00 00
+A0 0F
+80 14 00 00 00
+00
+A0 5F
+20 45
+50 15 08 00 00 00
+30 F2 01 00 00 00
+62 11
+73 32 00 00 00
+61 12
+74 3D 00 00 00
+30 F0 01 00 00 00
+20 54
+B0 5F
+90
+30 F2 01 00 00 00
+61 21
+A0 1F
+80 14 00 00 00
+B0 1F
+30 F2 01 00 00 00
+61 21
+A0 0F
+A0 1F
+80 14 00 00 00
+B0 1F
+B0 2F
+60 20
+20 54
+B0 5F
+90
+
+
+
+0x00: 30 F4 00 10 00 00 | irmovl $0x1000,%esp
+0x06: 30 F0 05 00 00 00 | irmovl $5,%eax
+0x0C: A0 0F             | pushl %eax
+0x0E: 80 14 00 00 00    | call Fib
+0x13: 00                | halt
+
+Fib:
+0x14: A0 5F             | pushl %ebp
+0x16: 20 45             | rrmovl %esp,%ebp
+0x18: 50 15 08 00 00 00 | mrmovl 8(%ebp),%ecx
+
+0x1E: 30 F2 01 00 00 00 | irmovl $1,%edx
+0x24: 62 11             | andl %ecx,%ecx
+0x26: 73 32 00 00 00    | je Done
+0x2B: 61 12             | subl %ecx,%edx
+0x2D: 74 3D 00 00 00    | jne Cont
+
+Done:
+0x32: 30 F0 01 00 00 00 | irmovl $1,%eax
+0x38: 20 54             | rrmovl %ebp,%esp
+0x3A: B0 5F             | popl %ebp
+0x3C: 90                | ret
+
+Cont:
+0x3D: 30 F2 01 00 00 00 | irmovl $1,%edx
+0x43: 61 21             | subl %edx,%ecx
+0x45: A0 1F             | pushl %ecx
+0x47: 80 14 00 00 00    | call Fib
+0x4C: B0 1F             | popl %ecx
+
+0x4E: 30 F2 01 00 00 00 | irmovl $1,%edx
+0x54: 61 21             | subl %edx,%ecx
+0x56: A0 0F             | pushl %eax
+0x58: A0 1F             | pushl %ecx
+0x5A: 80 14 00 00 00    | call Fib
+0x5F: B0 1F             | popl %ecx
+0x61: B0 2F             | popl %edx
+0x63: 60 20             | addl %edx,%eax
+
+0x65: 20 54             | rrmovl %ebp,%esp
+0x67: B0 5F             | popl %ebp
+0x69: 90                | ret
+
+result£º
+%eax=0x8

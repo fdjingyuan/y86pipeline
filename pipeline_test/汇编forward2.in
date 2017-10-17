@@ -1,0 +1,25 @@
+30 f2 80 00 00 00
+30 f1 03 00 00 00
+40 12 00 00 00 00
+30 f3 0a 00 00 00
+50 02 00 00 00 00
+60 30
+00
+
+
+
+30 f2 80 00 00 00  | irmovl $0x80,%edx
+30 f1 03 00 00 00  | irmovl $0x3,%ecx
+40 12 00 00 00 00  | rmmovl %ecx,(%edx)
+30 f3 0a 00 00 00  | irmovl $0xa,%ebx
+50 02 00 00 00 00  | mrmovl (%edx),%eax
+60 30              | addl %ebx,%eax
+00                 | halt
+
+
+result:
+%eax=0xd
+%ecx=0x3
+%edx=0x80
+%ebx=0xa
+
